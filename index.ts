@@ -16,6 +16,8 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
     private _showMonthPickerAsOverlay:boolean;
     private _showWeekNumbers:boolean;
     private _isRequired:boolean;
+    private _disableDays:number[]=[];
+    private _restrictedDates:Date[]=[];
 
     constructor() { }
 
@@ -50,13 +52,39 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
             this._minDate = this.dateConverter(context.parameters.pastTimeFrame.raw!,"past");        
             this._maxDate = this.dateConverter(context.parameters.futureTimeFrame.raw!,"future");          
         }
+
+        if(context.parameters.disableDays.raw == '6')
+            this._disableDays=[6]; //saturdays
+        else if(context.parameters.disableDays.raw =='0')
+            this._disableDays=[0]; //Sundays
+        else if(context.parameters.disableDays.raw == '7')
+            this._disableDays=[0,6];//saturdays & Sundays
+        else 
+            this._disableDays=[];
+
+        this._restrictedDates = this.disabledDatesParse(context.parameters.disabledDates.raw!)
     }
 
+    private disabledDatesParse (listDates:string){
+        try {
+            if(!listDates) return [];
+
+            const dates: Date[] =  listDates.split(',').map(dateStr => dateStr.trim()).filter(dateStr => dateStr.length == 10)
+            .map(dateStr => new Date(dateStr)).filter(date => !isNaN(date.getTime()));
+
+            return dates;
+            
+        } catch (error) {
+            return [];
+        }
+    }
 
     private dateConverter(date:string, duration:string="" ){
         try {
+            // normal date
             if(duration=="")
                 return new Date(date);  
+            //durations
             else if(duration!==""){
                 // Split the duration string by '.' and convert to numbers
                 const [yearsStr, monthsStr, daysStr] = date.split('.').map(part => part.trim());
@@ -90,7 +118,8 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
     private isValidNumber(value: string): boolean {
         const num = Number(value);
         return !isNaN(num) && isFinite(num);
-      }
+    }
+
     /**
      * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
@@ -106,7 +135,9 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
             allowTextInput : this._allowTextInput,
             showMonthPickerAsOverlay : this._showMonthPickerAsOverlay ,
             showWeekNumbers : this._showWeekNumbers ,
-            isRequired : this._isRequired
+            isRequired : this._isRequired,
+            disableDays:this._disableDays,
+            restrictedDates:this._restrictedDates
         };
         return React.createElement(
             HelloWorld, props

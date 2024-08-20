@@ -7,21 +7,36 @@
     
     <property name="DateAndTime" display-name-key="DateAndTime" description-key="DateAndTime" of-type="DateAndTime.DateOnly" usage="bound" required="true" />
 
+    <property name="dateRangeSelector" display-name-key="Range Configuration" description-key="Range Configuration" of-type="Enum" usage="input" required="true">
+        <value name="Specific Duration" display-name-key="Specific Duration" description-key="Specific Duration">0</value>
+        <value name="Flexible Time Frame" display-name-key="Flexible Time Frame" description-key="Flexible Time Frame">1</value>
+    </property>
+
     <property name="minDate" display-name-key="Minimum Date (YYYY-MM-DD)" description-key="Minimum Date" of-type="SingleLine.Text" usage="input" required="false" />
     <property name="maxDate" display-name-key="Maximum Date (YYYY-MM-DD)" description-key="Maximum Date" of-type="SingleLine.Text" usage="input" required="false" />
 
     <property name="pastTimeFrame" display-name-key="Past Duration (Year.Month.Day)" description-key="Specifies the past duration from today in the format Year.Month.Day. Adjusts dynamically based on the current date to determine how far back the date range should extend." of-type="SingleLine.Text" usage="input" required="false" />
     <property name="futureTimeFrame" display-name-key="Future Duration (Year.Month.Day)" description-key="Specifies the future duration from today in the format Year.Month.Day. Adjusts dynamically based on the current date to determine how far into the future the date range should extend." of-type="SingleLine.Text" usage="input" required="false" />
     
-    <property name="dateRangeSelector" display-name-key="Range Configuration" description-key="Range Configuration" of-type="Enum" usage="input" required="true">
-        <value name="Specific Duration" display-name-key="Specific Duration" description-key="Specific Duration">0</value>
-        <value name="Flexible Time Frame" display-name-key="Flexible Time Frame" description-key="Flexible Time Frame">1</value>
-    </property>
+
+    <property name="disableDays" display-name-key="Disable Days" description-key="Choose which days to disable in the calendar" of-type="Enum" usage="input" required="true" default-value="-1" >
+            <value name="No Days" display-name-key="Specific Duration" description-key="Specific Duration">-1</value>        
+            <value name="Saturdays" display-name-key="Flexible Time Frame" description-key="Flexible Time Frame">6</value>
+            <value name="Sundays" display-name-key="Flexible Time Frame" description-key="Flexible Time Frame">0</value>
+            <value name="Weekends" display-name-key="Weekends" description-key="Disable Weekends">7</value>
+          </property>
+
+    <property name="disabledDates" display-name-key="Disabled Dates (YYYY-MM-DD)" description-key="Comma-separated list of dates to disable, e.g., 2024-08-20,2024-12-25" of-type="SingleLine.Text" usage="input" required="false" />
+
 
     <property name="allowTextInput" display-name-key="Allow Text Input" of-type="TwoOptions" usage="input" required="true" />
     <property name="showMonthPickerAsOverlay" display-name-key="Show Month Picker As Overlay" description-key="Show month picker on top of date picker when visible." of-type="TwoOptions" usage="input" required="true" />
     <property name="showWeekNumbers" display-name-key="Show Week Numbers" of-type="TwoOptions" usage="input" required="true" />
     <property name="isRequired" display-name-key="Is Required" of-type="TwoOptions" usage="input" required="true" />
+
+
+
+     
 
     <resources>
       <code path="index.ts" order="1"/>
