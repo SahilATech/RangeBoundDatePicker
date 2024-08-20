@@ -7,6 +7,9 @@ export interface IInputs {
     DateAndTime: ComponentFramework.PropertyTypes.DateTimeProperty;
     minDate: ComponentFramework.PropertyTypes.StringProperty;
     maxDate: ComponentFramework.PropertyTypes.StringProperty;
+    pastTimeFrame: ComponentFramework.PropertyTypes.StringProperty;
+    futureTimeFrame: ComponentFramework.PropertyTypes.StringProperty;
+    dateRangeSelector: ComponentFramework.PropertyTypes.EnumProperty<"0" | "1">;
     allowTextInput: ComponentFramework.PropertyTypes.TwoOptionsProperty;
     showMonthPickerAsOverlay: ComponentFramework.PropertyTypes.TwoOptionsProperty;
     showWeekNumbers: ComponentFramework.PropertyTypes.TwoOptionsProperty;

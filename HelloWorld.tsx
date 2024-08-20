@@ -2,8 +2,8 @@ import * as React from 'react';
 import { DatePicker, DefaultButton, defaultCalendarStrings, defaultDatePickerStrings, IDatePickerStrings, IDatePickerStyles, mergeStyleSets } from '@fluentui/react';
 
 export interface IHelloWorldProps {
-  minDate: string;
-  maxDate: string;
+  minDate: Date;
+  maxDate: Date;
   selectedDate?: Date;
   onSelectDate: (newValue: Date | null | undefined) => void;
   uniqueKey:string;
@@ -25,8 +25,8 @@ export class HelloWorld extends React.Component<IHelloWorldProps,IHelloWorldStat
   constructor(props: IHelloWorldProps) {
     super(props);
     this.state = {
-      minDate: new Date(props.minDate),
-      maxDate : new Date(props.maxDate),
+      minDate: props.minDate,
+      maxDate : props.maxDate,
       initialSelectedDate : props.selectedDate,
       currentSelectedDate : props.selectedDate
     };

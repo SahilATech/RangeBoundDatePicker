@@ -6,8 +6,8 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
     private notifyOutputChanged: () => void;
 
-    private _minDate:string;
-    private _maxDate:string;
+    private _minDate:Date =new Date();
+    private _maxDate:Date=new Date();
     
     private _selectedDate:Date;
     private _newSelectedDate: Date | null = null;
@@ -32,8 +32,6 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
         state: ComponentFramework.Dictionary
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
-        this._minDate = context.parameters.minDate.raw!;
-        this._maxDate = context.parameters.maxDate.raw!;
         this._selectedDate = context.parameters.DateAndTime.raw!;
         this._uniqueKey = context.parameters.DateAndTime.attributes?.LogicalName ?? "";
 
@@ -41,8 +39,58 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
         this._showMonthPickerAsOverlay = context.parameters.showMonthPickerAsOverlay.raw;
         this._showWeekNumbers = context.parameters.showWeekNumbers.raw;
         this._isRequired = context.parameters.isRequired.raw;
+
+        //Specific Duration
+        if(context.parameters.dateRangeSelector.raw == '0'){             
+            this._minDate = this.dateConverter(context.parameters.minDate.raw!);        
+            this._maxDate = this.dateConverter(context.parameters.maxDate.raw!);
+        }
+        //Flexible Time Frame
+        else if(context.parameters.dateRangeSelector.raw == '1'){
+            this._minDate = this.dateConverter(context.parameters.pastTimeFrame.raw!,"past");        
+            this._maxDate = this.dateConverter(context.parameters.futureTimeFrame.raw!,"future");          
+        }
     }
 
+
+    private dateConverter(date:string, duration:string="" ){
+        try {
+            if(duration=="")
+                return new Date(date);  
+            else if(duration!==""){
+                // Split the duration string by '.' and convert to numbers
+                const [yearsStr, monthsStr, daysStr] = date.split('.').map(part => part.trim());
+
+                // Convert strings to numbers and provide default values for missing parts
+                const years = this.isValidNumber(yearsStr) ? Number(yearsStr) : 0;
+                const months = this.isValidNumber(monthsStr) ? Number(monthsStr) : 0;
+                const days = this.isValidNumber(daysStr) ? Number(daysStr) : 0;
+
+                const todays = new Date();  
+                
+                if(duration=="future"){
+                    todays.setFullYear(todays.getFullYear() + years);    
+                    todays.setMonth(todays.getMonth() + months);
+                    todays.setDate(todays.getDate() + days);   
+                }
+                else if(duration=="past"){
+                    todays.setFullYear(todays.getFullYear() - years);    
+                    todays.setMonth(todays.getMonth() - months);
+                    todays.setDate(todays.getDate() - days);
+                }         
+                return todays;
+            }               
+            else return new Date();       
+        } catch (error) {
+            console.log(error);
+            return new Date();
+        }
+    }
+
+    private isValidNumber(value: string): boolean {
+        const num = Number(value);
+        return !isNaN(num) && isFinite(num);
+      }
     /**
      * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
