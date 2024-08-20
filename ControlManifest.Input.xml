@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="sa" constructor="RangeBoundDatePicker" version="0.0.1" display-name-key="RangeBoundDatePicker" description-key="RangeBoundDatePicker description" control-type="virtual" >
+    <external-service-usage enabled="false">
+    </external-service-usage>
+    <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
+    
+    <property name="DateAndTime" display-name-key="DateAndTime" description-key="DateAndTime" of-type="DateAndTime.DateOnly" usage="bound" required="true" />
+
+    <property name="minDate" display-name-key="Minimum Date (YYYY-MM-DD)" description-key="Minimum Date" of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="maxDate" display-name-key="Maximum Date (YYYY-MM-DD)" description-key="Maximum Date" of-type="SingleLine.Text" usage="input" required="true" />
+    
+    <property name="allowTextInput" display-name-key="Allow Text Input" of-type="TwoOptions" usage="input" required="true" />
+    <property name="showMonthPickerAsOverlay" display-name-key="Show Month Picker As Overlay" description-key="Show month picker on top of date picker when visible." of-type="TwoOptions" usage="input" required="true" />
+    <property name="showWeekNumbers" display-name-key="Show Week Numbers" of-type="TwoOptions" usage="input" required="true" />
+    <property name="isRequired" display-name-key="Is Required" of-type="TwoOptions" usage="input" required="true" />
+
+    <resources>
+      <code path="index.ts" order="1"/>
+      <platform-library name="React" version="16.8.6" />
+      <platform-library name="Fluent" version="8.29.0" />
+    </resources>
+  </control>
+</manifest>
