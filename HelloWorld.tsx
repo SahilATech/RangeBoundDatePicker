@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DatePicker, defaultCalendarStrings, defaultDatePickerStrings, IDatePickerStrings, IDatePickerStyles, mergeStyleSets } from '@fluentui/react';
+import { DatePicker, DefaultButton, defaultCalendarStrings, defaultDatePickerStrings, IDatePickerStrings, IDatePickerStyles, mergeStyleSets } from '@fluentui/react';
 
 export interface IHelloWorldProps {
   minDate: string;
@@ -62,13 +62,11 @@ export class HelloWorld extends React.Component<IHelloWorldProps,IHelloWorldStat
   };
 
   public render(): React.ReactNode {
-    const datePickerStyles: Partial<IDatePickerStyles> = { root: { marginTop: 15 } };
     return (
       <>
-        <div style={{ height: 'auto' }}>
+        <div className={styles.container}>
           <DatePicker
-            styles={datePickerStyles}
-            className={styles.control}
+            className={styles.datePicker}
             placeholder="Select a date..."
             ariaLabel="Select a date"
             strings={this.getDatePickerStrings()}
@@ -84,14 +82,27 @@ export class HelloWorld extends React.Component<IHelloWorldProps,IHelloWorldStat
             showMonthPickerAsOverlay={this.props.showMonthPickerAsOverlay}
             showWeekNumbers={this.props.showWeekNumbers}
             isRequired={this.props.isRequired}
-          />
+          />    
+          <DefaultButton
+            id={"DefaultButton"}
+            onClick={this.resetDatePicker}
+            text={"Revert"}
+          />      
         </div>
       </>
     );
   }
 }
 
+
 const styles = mergeStyleSets({
-  root: { selectors: { '> *': { marginBottom: 15 } } },
-  control: { marginBottom: 15 },
+  container: {
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: '10px', // Adjust space between DatePicker and button
+    minWidth: '-webkit-fill-available',
+  },
+  datePicker: {
+    flexGrow: 1, // Allows DatePicker to take available space
+  }
 });
