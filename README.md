@@ -21,7 +21,7 @@ Gone are the days of writing intricate validation code. **RangeBoundDatePicker**
 https://github.com/user-attachments/assets/c9a3078e-9193-4782-9682-6510fd61f2f8
 
 
-[Managed Solution](https://github.com/SahilATech/RangeBoundDatePicker/raw/b43fe4819bd939b6c0067056861b1ae0e245e0ec/Solutions/Solutions_managed.zip)
+[Managed Solution](https://github.com/SahilATech/RangeBoundDatePicker/raw/39f312625ecb9b0588153b1cad27452bb0ed8d51/Solutions/Solutions_managed.zip)
 
 
 ## Features
@@ -83,7 +83,7 @@ The **RangeBoundDatePicker** control is ideal for scenarios where precise contro
 ![Dialog Box](https://github.com/SahilATech/RangeBoundDatePicker/blob/b43fe4819bd939b6c0067056861b1ae0e245e0ec/Images/DatePickerControl2.png)
 
 
-[Managed Solution](https://github.com/SahilATech/RangeBoundDatePicker/raw/b43fe4819bd939b6c0067056861b1ae0e245e0ec/Solutions/Solutions_managed.zip)
+[Managed Solution](https://github.com/SahilATech/RangeBoundDatePicker/raw/39f312625ecb9b0588153b1cad27452bb0ed8d51/Solutions/Solutions_managed.zip)
 
 ## License
 
