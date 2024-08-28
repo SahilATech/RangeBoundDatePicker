@@ -18,6 +18,7 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
     private _isRequired:boolean;
     private _disableDays:number[]=[];
     private _restrictedDates:Date[]=[];
+    private _isDisable:boolean;
 
     constructor() { }
 
@@ -63,6 +64,8 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
             this._disableDays=[];
 
         this._restrictedDates = this.disabledDatesParse(context.parameters.disabledDates.raw!)
+
+        this._isDisable = context.mode.isControlDisabled;
     }
 
     private disabledDatesParse (listDates:string){
@@ -137,7 +140,8 @@ export class RangeBoundDatePicker implements ComponentFramework.ReactControl<IIn
             showWeekNumbers : this._showWeekNumbers ,
             isRequired : this._isRequired,
             disableDays:this._disableDays,
-            restrictedDates:this._restrictedDates
+            restrictedDates:this._restrictedDates,
+            isDisable:this._isDisable
         };
         return React.createElement(
             HelloWorld, props

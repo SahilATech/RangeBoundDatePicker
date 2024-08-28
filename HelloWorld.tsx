@@ -12,7 +12,8 @@ export interface IHelloWorldProps {
   showWeekNumbers  : boolean;
   isRequired  : boolean;
   disableDays:number[];
-  restrictedDates:Date[]
+  restrictedDates:Date[];
+  isDisable:boolean;
 }
 
 interface IHelloWorldState {
@@ -109,10 +110,11 @@ export class HelloWorld extends React.Component<IHelloWorldProps,IHelloWorldStat
             showMonthPickerAsOverlay={this.props.showMonthPickerAsOverlay}
             showWeekNumbers={this.props.showWeekNumbers}
             isRequired={this.props.isRequired}
-
+            disabled={this.props.isDisable}
             calendarAs={(props) => <Calendar {...props} calendarDayProps={this.calendarDayProps} />}
           />    
           <DefaultButton
+            disabled={this.props.isDisable}
             id={"DefaultButton"}
             onClick={this.resetDatePicker}
             text={"Revert"}
